@@ -46,5 +46,5 @@
   - Separate deployment for testing from any branch.
 
 ## Compatibility
-### The system is designed with flexibility to be compatible with various UI services.
-### Future updates may include adaptations for mobile apps and other interfaces as needed.
+- The system is designed with flexibility to be compatible with various UI services.
+- Future updates may include adaptations for mobile apps and other interfaces as needed.
