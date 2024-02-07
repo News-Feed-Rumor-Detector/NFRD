@@ -3,11 +3,11 @@ import './App.css';
 
 const App = () => {
   const [inputData, setInputData] = useState('');
-  const [response, setResponse] = useState('');
+  const [analysisResult, setAnalysisResult] = useState('');
 
-  const analyze = async () => {
+  const analyzeInput = async () => {
     try {
-      const backendResponse = await fetch('http://localhost:8080/process', {
+      const backendResponse = await fetch('http://localhost:8080/analyze', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -16,29 +16,29 @@ const App = () => {
       });
 
       const responseData = await backendResponse.json();
-      setResponse(responseData.message);
+      setAnalysisResult(responseData.message);
     } catch (error) {
-      console.error('Error sending data to backend:', error);
-      setResponse('Error: Unable to connect to the backend.');
+      console.error('Error analyzing input:', error);
+      setAnalysisResult('Error: Unable to connect to the backend.');
     }
   };
 
   return (
     <div className="app-container">
-      <h1>Simple Web App</h1>
-      <div>
-        <label htmlFor="inputData">Input Data:</label>
-        <input
-          type="text"
+      <h1>Rumor Detector</h1>
+      <div className="input-container">
+        <label htmlFor="inputData">Enter Text:</label>
+        <textarea
           id="inputData"
           value={inputData}
           onChange={(e) => setInputData(e.target.value)}
+          placeholder="Type your text here..."
         />
       </div>
-      <button onClick={analyze}>Analyze</button>
-      <div>
-        <h2>Analysis results</h2>
-        <textarea value={response} readOnly />
+      <button onClick={analyzeInput}>Analyze</button>
+      <div className="result-container">
+        <h2>Analysis Result:</h2>
+        <p>{analysisResult}</p>
       </div>
     </div>
   );
