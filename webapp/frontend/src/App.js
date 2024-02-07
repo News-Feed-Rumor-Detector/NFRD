@@ -7,7 +7,7 @@ const App = () => {
 
   const analyzeInput = async () => {
     try {
-      const backendResponse = await fetch('http://localhost:8080/analyze', {
+      const response = await fetch('http://localhost:8080/analyze', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -15,11 +15,11 @@ const App = () => {
         body: JSON.stringify({ data: inputData }),
       });
 
-      const responseData = await backendResponse.json();
-      setAnalysisResult(responseData.message);
+      const result = await response.json();
+      setAnalysisResult(result.message);
     } catch (error) {
-      console.error('Error analyzing input:', error);
-      setAnalysisResult('Error: Unable to connect to the backend.');
+      console.error('Error calling API:', error);
+      setAnalysisResult('Error: Unable to connect to the API.');
     }
   };
 
