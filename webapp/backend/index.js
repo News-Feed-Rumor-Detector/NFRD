@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const rumorDetector = require('./rumorDetector');
 
 const app = express();
 const port = 8080;
@@ -11,25 +12,14 @@ app.use(cors());
 // Parse JSON requests
 app.use(bodyParser.json());
 
-// Function to simulate rumor detection (placeholder)
-const detectRumor = () => {
-  // Simulate a 70% chance of detecting a rumor
-  return Math.random() < 0.7;
-};
-
-app.post('/analyze', (req, res) => {
+app.post('/analyze', async (req, res) => {
   const inputData = req.body.data;
 
-  // Simulate the model (replace with the actual model later)
-  const isRumor = detectRumor();
+  // Use the rumorDetector module
+  const result = await rumorDetector.analyzeRumor(inputData);
 
-  // Placeholder response
-  const responseData = {
-    isRumor,
-    message: isRumor ? 'This might be a rumor.' : 'No indication of a rumor.',
-  };
-
-  res.json(responseData);
+  // Send the response
+  res.json(result);
 });
 
 app.listen(port, () => {
