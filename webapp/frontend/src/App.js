@@ -25,7 +25,7 @@ const App = () => {
 
   return (
     <div className="app-container">
-      <h1>Rumor Detector</h1>
+      <h1>NFRD</h1>
       <div className="input-container">
         <label htmlFor="inputData">Enter Text:</label>
         <textarea
