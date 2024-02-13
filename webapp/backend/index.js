@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const rumorDetector = require('./rumorDetector');
 
 const app = express();
-const port = 8080;
+const port = 8081;
 
 // Enable CORS
 app.use(cors());
