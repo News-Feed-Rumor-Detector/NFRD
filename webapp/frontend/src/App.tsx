@@ -1,26 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
+import {NFRDService} from "./NFRDService";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    const [inputData, setInputData] = useState('');
+    const [analysisResult, setAnalysisResult] = useState('');
+
+    return (
+        <div className="app-container">
+            <h1>NFRD</h1>
+            <div className="input-container">
+                <label htmlFor="inputData">Enter Text:</label>
+                <textarea
+                    id="inputData"
+                    value={inputData}
+                    onChange={(e) => setInputData(e.target.value)}
+                    placeholder="Type your text here..."
+                />
+            </div>
+            <button onClick={() => NFRDService(inputData, setAnalysisResult)}>Analyze</button>
+            <div className="result-container">
+                <h2>Analysis Result:</h2>
+                <p>{analysisResult}</p>
+            </div>
+        </div>
+    );
+};
 
 export default App;
