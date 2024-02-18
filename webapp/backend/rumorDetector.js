@@ -7,6 +7,7 @@ const analyzeRumor = async (inputData) => {
   // Use the API client to simulate making a request to an imaginary API
   const apiResponse = await apiClient.callHuggingFaceAPI(inputData);
 
+
   // Return the response from the imaginary API
   return apiResponse;
 };

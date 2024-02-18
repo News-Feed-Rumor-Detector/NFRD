@@ -12,8 +12,6 @@ export const NFRDService = async (inputData: string, setAnalysisResult: React.Di
 
         const result = await response.json();
 
-        console.log('Response from API:', result);
-
         if (result && 'isRumor' in result && 'label_0_probability' in result && 'label_1_probability' in result) {
             const analysisResult = result.isRumor
                 ? `This might be a rumor. Probability: ${result.label_1_probability}`
