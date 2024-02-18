@@ -17,7 +17,6 @@ export const NFRDService = async (inputData: string, setAnalysisResult: React.Di
                 ? `This might be a rumor. Probability: ${result.label_1_probability}`
                 : `No indication of a rumor. Probability: ${result.label_0_probability}`;
 
-            console.log('Analysis Result:', analysisResult);
 
             setAnalysisResult(analysisResult);
         } else {

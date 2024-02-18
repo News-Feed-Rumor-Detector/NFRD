@@ -10,6 +10,13 @@ const callHuggingFaceAPI = async (inputData) => {
 
   try {
     const response = await axios.post(apiUrl, { text: inputData }, { headers });
+  
+    // Handle specific HTTP status codes
+    if (response.status === 503) {
+      throw new Error(`Model is currently loading. Please try again later. Estimated time: ${result.estimated_time} seconds.`);
+    } else if (response.status === 429) {
+      throw new Error('Too Many Requests');
+    }
     const responseData = response.data;
 
     // Check if the response data contains an array with at least two elements
@@ -19,13 +26,6 @@ const callHuggingFaceAPI = async (inputData) => {
 
     // Interpret probabilities and determine the result
     const result = interpretProbabilities(responseData);
-
-    // Handle specific HTTP status codes
-    if (response.status === 503) {
-      throw new Error(`Model is currently loading. Please try again later. Estimated time: ${result.estimated_time} seconds.`);
-    } else if (response.status === 429) {
-      throw new Error('Too Many Requests');
-    }
 
     return result;
   } catch (error) {
