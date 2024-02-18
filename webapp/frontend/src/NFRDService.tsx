@@ -7,11 +7,22 @@ export const NFRDService = async (inputData: string, setAnalysisResult: React.Di
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({data: inputData}),
+            body: JSON.stringify({ data: inputData }),
         });
 
         const result = await response.json();
-        setAnalysisResult(result.message);
+
+        if (result && 'isRumor' in result && 'label_0_probability' in result && 'label_1_probability' in result) {
+            const analysisResult = result.isRumor
+                ? `This might be a rumor. Probability: ${result.label_1_probability}`
+                : `No indication of a rumor. Probability: ${result.label_0_probability}`;
+
+
+            setAnalysisResult(analysisResult);
+        } else {
+            console.error('Invalid response format:', result);
+            setAnalysisResult('Error: Invalid response format.');
+        }
     } catch (error) {
         console.error('Error calling API:', error);
         setAnalysisResult('Error: Unable to connect to the API.');
