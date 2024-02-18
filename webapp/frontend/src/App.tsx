@@ -18,7 +18,7 @@ function App() {
                     placeholder="Type your text here..."
                 />
             </div>
-            <button onClick={() => NFRDService(inputData, setAnalysisResult)}>Analyze</button>
+            <button onClick={async () => {await  NFRDService(inputData, setAnalysisResult);}}>Analyze</button>
             <div className="result-container">
                 <h2>Analysis Result:</h2>
                 <p>{analysisResult}</p>
