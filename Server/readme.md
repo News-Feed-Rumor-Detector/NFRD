@@ -4,7 +4,7 @@ This is a flask server that accepts requests to predict whether a certain input 
 ## How to run:
 1. It is encourged to create a virtual environment for the server to achieve isolation and reproducibility, you can do so by running the command `python3 -m venv env` and then activating the virtual environment by running `source env/bin/activate`.
 
-    * If you do not have the venv module installed on your machine, try running `pip install python3.10-venv`, feel free to change the python version to the one you use.
+    * If you do not have the venv module installed on your machine, try running `apt install python3.10-venv`, feel free to change the python version to the one you use.
 
 2. Afterwards, the python dependencies should be installed using `pip install -r requirements.txt`. If the downloaded packages are too big for your machine's storage/memory, consider passing the `--no-cache-dir` at the end of the command, or creating a swap memory.
 
