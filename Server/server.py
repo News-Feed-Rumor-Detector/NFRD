@@ -39,7 +39,7 @@ model = load_model(model_path)
 
 
 # Define the predict endpoint
-@app.route('/predict', methods=['GET'])
+@app.route('/', methods=['GET'])
 def predict():
     # Get input data from request body
     data = request.json
@@ -54,6 +54,9 @@ def predict():
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
+@app.route('/health')
+def health():
+    return "ok", 200
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)  # Run Flask app
