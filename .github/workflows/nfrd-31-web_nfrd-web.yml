@@ -96,6 +96,7 @@ jobs:
           slot-name: 'Production'
           package: webapp/backend
 
+
       - name: 'Deploy frontend to Azure Web App'
         id: deploy-frontend-to-webapp
         uses: azure/webapps-deploy@v2
