@@ -21,9 +21,10 @@ def make_predictions(model, texts):
 
     # Get predicted labels
     logits = outputs.logits
-    predictions = torch.argmax(logits, dim=1).tolist()
-
-    return predictions
+    prediction = torch.argmax(logits, dim=1).tolist()[0]
+    softmax = torch.nn.Softmax(dim=1)
+    confidence = softmax(logits)[0].tolist()[prediction]
+    return prediction, confidence
 
 # Load your PyTorch model
 def load_model(model_path):
@@ -49,8 +50,8 @@ def predict():
     # Perform prediction
     try:
         texts = [data['input']]
-        predictions = make_predictions(model, texts)
-        return jsonify({'prediction': predictions}), 200
+        prediction, confidence = make_predictions(model, texts)
+        return jsonify({'prediction': prediction, 'confidence': confidence}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
@@ -60,4 +61,3 @@ def health():
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", debug=True)  # Run Flask app
-
