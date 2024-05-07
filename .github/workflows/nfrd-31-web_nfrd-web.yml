@@ -23,23 +23,23 @@ jobs:
 
       - name: npm install, build, and test for backend
         run: |
-          cd NFRD/webapp/backend
+          cd webapp/backend
           npm install
           npm run build --if-present
           npm run test --if-present
         
       - name: npm install, build, and test for frontend
         run: |
-          cd NFRD/webapp/frontend
+          cd webapp/frontend
           npm install
           npm run build --if-present
           npm run test --if-present
           
       - name: Zip backend artifact for deployment
-        run: zip backend-release.zip NFRD/webapp/backend/* -r
+        run: zip backend-release.zip webapp/backend/* -r
 
       - name: Zip frontend artifact for deployment
-        run: zip frontend-release.zip NFRD/webapp/frontend/* -r
+        run: zip frontend-release.zip webapp/frontend/* -r
 
       - name: Upload backend artifact for deployment job
         uses: actions/upload-artifact@v3
@@ -94,7 +94,7 @@ jobs:
         with:
           app-name: 'NFRD-Web'
           slot-name: 'Production'
-          package: NFRD/webapp/backend
+          package: webapp/backend
 
       - name: 'Deploy frontend to Azure Web App'
         id: deploy-frontend-to-webapp
@@ -102,4 +102,4 @@ jobs:
         with:
           app-name: 'NFRD-Web'
           slot-name: 'Production'
-          package: NFRD/webapp/frontend
+          package: webapp/frontend
