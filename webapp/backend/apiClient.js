@@ -33,7 +33,6 @@ const callAzureAPI = async (inputData) => {
 
 // Function to interpret prediction
 const interpretPrediction = (response) => {
-  console.log(response);
   // Check if response is valid
   if (!response || !response.hasOwnProperty('confidence') || !response.hasOwnProperty('prediction')) {
     throw new Error('Invalid response format: Missing confidence or prediction.');
