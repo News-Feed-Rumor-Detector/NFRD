@@ -1,6 +1,3 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
 name: Build and deploy Node.js app to Azure Web App - NFRD-Web
 
 on:
@@ -14,45 +11,44 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
 
       - name: Set up Node.js version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
-          node-version: '20.x'
+          node-version: '14.x'
 
       - name: npm install, build, and test for backend
         run: |
-          cd NFRD/webapp/backend
+          cd webapp/backend
           npm install
           npm run build --if-present
           npm run test --if-present
-        
+
       - name: npm install, build, and test for frontend
         run: |
-          cd NFRD/webapp/frontend
+          cd webapp/frontend
           npm install
           npm run build --if-present
           npm run test --if-present
-          
+
       - name: Zip backend artifact for deployment
-        run: zip backend-release.zip NFRD/webapp/backend/* -r
+        run: zip -r backend-release.zip webapp/backend/*
 
       - name: Zip frontend artifact for deployment
-        run: zip frontend-release.zip NFRD/webapp/frontend/* -r
+        run: zip -r frontend-release.zip webapp/frontend/*
 
       - name: Upload backend artifact for deployment job
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: backend-app
           path: backend-release.zip
 
       - name: Upload frontend artifact for deployment job
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v2
         with:
           name: frontend-app
           path: frontend-release.zip
-
 
   deploy:
     runs-on: ubuntu-latest
@@ -65,41 +61,36 @@ jobs:
 
     steps:
       - name: Download backend artifact from build job
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v2
         with:
           name: backend-app
 
       - name: Download frontend artifact from build job
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v2
         with:
           name: frontend-app
 
       - name: Unzip backend artifact for deployment
-        run: unzip backend-release.zip
+        run: unzip -o backend-release.zip -d backend
 
       - name: Unzip frontend artifact for deployment
-        run: unzip frontend-release.zip
+        run: unzip -o frontend-release.zip -d frontend
 
-      
       - name: Login to Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_531933A0E8C848569241A871B0289823 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_EE1EB3B26F2A4B77A464F92405578448 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_B30A000E35934D30B33AB761CB10A7B2 }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: 'Deploy backend to Azure Web App'
-        id: deploy-backend-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'NFRD-Web'
           slot-name: 'Production'
-          package: NFRD/webapp/backend
+          package: backend
 
       - name: 'Deploy frontend to Azure Web App'
-        id: deploy-frontend-to-webapp
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'NFRD-Web'
           slot-name: 'Production'
-          package: NFRD/webapp/frontend
+          package: frontend
