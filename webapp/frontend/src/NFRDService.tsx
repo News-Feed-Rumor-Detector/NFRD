@@ -1,16 +1,19 @@
 import axios from 'axios';
 
-export const NFRDService = async (inputData: string, setAnalysisResult: React.Dispatch<React.SetStateAction<string>>) => {
-    try {
-        const response = await axios.get('http://172.166.85.39', {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            data: {
-                input: inputData
-            }
-        });
 
+export const NFRDService = async (inputData: string, setAnalysisResult: React.Dispatch<React.SetStateAction<string>>) => {
+    const apiUrl = 'http://172.166.85.39'; // Azure model endpoint
+    const headers = {
+      'Content-Type': 'application/json',
+    };
+  
+    try {
+      const response = await axios.get(apiUrl, {
+        headers,
+        data: {
+          input: inputData
+        }
+      });
         const responseData = response.data;
 
         // Check if the response data contains confidence and prediction
@@ -36,10 +39,10 @@ export const NFRDService = async (inputData: string, setAnalysisResult: React.Di
         setAnalysisResult('Error: Unable to connect to the Azure API.');
     }
 };
+
 interface  ModelResponse{
     confidence: number;
     prediction: number;
-    // Add other properties if needed
 }
 
 
