@@ -1,19 +1,17 @@
 import axios from 'axios';
+
 export const NFRDService = async (inputData: string, setAnalysisResult: React.Dispatch<React.SetStateAction<string>>) => {
     try {
-        const response = await fetch('https://cors-anywhere.herokuapp.com/http://172.166.85.39', {
-            method: 'GET',
+        const response = await axios.get('http://172.166.85.39', {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ input: inputData })
+            data: {
+                input: inputData
+            }
         });
 
-        if (!response.ok) {
-            throw new Error('Failed to fetch');
-        }
-
-        const responseData = await response.json();
+        const responseData = response.data;
 
         // Check if the response data contains confidence and prediction
         if (!responseData.hasOwnProperty('confidence') || !responseData.hasOwnProperty('prediction')) {
@@ -38,15 +36,15 @@ export const NFRDService = async (inputData: string, setAnalysisResult: React.Di
         setAnalysisResult('Error: Unable to connect to the Azure API.');
     }
 };
-
-// Define the type for your response object
-interface predictionResponse {
+interface  ModelResponse{
     confidence: number;
     prediction: number;
+    // Add other properties if needed
 }
 
+
 // Function to interpret prediction
-const interpretPrediction = (response: predictionResponse) => {
+const interpretPrediction = (response: ModelResponse) => {
     // Check if response is valid
     if (!response || !response.hasOwnProperty('confidence') || !response.hasOwnProperty('prediction')) {
         throw new Error('Invalid response format: Missing confidence or prediction.');
