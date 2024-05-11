@@ -5,10 +5,9 @@ from transformers import AutoTokenizer, RobertaTokenizer, RobertaForSequenceClas
 # Initialize Flask application
 app = Flask(__name__)
 
-
 def make_predictions(model, texts):
     # Tokenize the input texts
-    tokenizer = AutoTokenizer.from_pretrained('roberta-base')
+    tokenizer = AutoTokenizer.from_pretrained('NFRD/nfrd-model')
     inputs = tokenizer(texts, truncation=True, padding=True, return_tensors='pt')
 
     # Move inputs to the same device as the model
@@ -27,16 +26,12 @@ def make_predictions(model, texts):
     return prediction, confidence
 
 # Load your PyTorch model
-def load_model(model_path):
-    model = RobertaForSequenceClassification.from_pretrained('roberta-base', num_labels=2)
-    model.load_state_dict(torch.load(model_path, map_location=torch.device('cpu')))
-    model.eval()
+def load_model():
+    model = RobertaForSequenceClassification.from_pretrained('NFRD/nfrd-model', num_labels=2)
     return model
 
 
-# Replace 'model.pth' with the path to your actual model file
-model_path = 'model.pth'
-model = load_model(model_path)
+model = load_model()
 
 
 # Define the predict endpoint
