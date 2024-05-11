@@ -1,0 +1,9 @@
+[Unit]
+Description=Run restart_flask.service every hour
+
+[Timer]
+OnCalendar=*:0
+Persistent=true
+
+[Install]
+WantedBy=timers.target

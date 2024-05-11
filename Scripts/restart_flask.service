@@ -1,0 +1,6 @@
+[Unit]
+Description=Restart Flask App
+
+[Service]
+Type=oneshot
+ExecStart=/home/nfrd/Server/restart_flask.sh
