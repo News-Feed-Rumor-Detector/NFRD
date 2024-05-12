@@ -1,4 +1,4 @@
-# Feature Extraction and Label Propagation with RoBERTa
+# Feature Extraction and Label Propagation with RoBERTa and KNN
 
 ## Feature Extraction
 
@@ -6,7 +6,7 @@ The provided code performs feature extraction from a combined dataset using the 
 
 ### 1. Data Fetching
 
-- The script fetches true and false news data from a Supabase database using `fetch_data_from_supabase` function.
+- The script fetches balanced true and false news data from a Supabase database using `fetch_data_from_supabase` function.
 
 ### 2. Tokenization and Encoding
 
@@ -58,4 +58,3 @@ After extracting features, the code propagates labels to unlabeled data in the f
 ## Conclusion
 
 The code effectively performs feature extraction using RoBERTa and propagates labels to unlabeled data in the feature space using a KNN classifier. It leverages Supabase for data storage and retrieval, and ensures memory management for efficient processing.
-
