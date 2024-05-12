@@ -3,12 +3,14 @@ import axios from 'axios';
 
 export const NFRDService = async (inputData: string, setAnalysisResult: React.Dispatch<React.SetStateAction<string>>) => {
     const apiUrl = 'http://172.166.85.39'; // Azure model endpoint
+    const requestBody = {"input": inputData};
     const headers = {
       'Content-Type': 'application/json',
+      'Content-Length': JSON.stringify(requestBody).length
     };
   
     try {
-      const response = await axios.post(apiUrl, {"input": inputData}, {headers: headers});
+      const response = await axios.post(apiUrl, requestBody, {headers: headers});
         const responseData = response.data;
 
         // Check if the response data contains confidence and prediction
