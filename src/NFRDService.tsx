@@ -5,8 +5,7 @@ export const NFRDService = async (inputData: string, setAnalysisResult: React.Di
     const apiUrl = 'http://172.166.85.39'; // Azure model endpoint
     const requestBody = {"input": inputData};
     const headers = {
-      'Content-Type': 'application/json',
-      'Content-Length': JSON.stringify(requestBody).length
+      'Content-Type': 'application/json'
     };
   
     try {
