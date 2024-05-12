@@ -16,16 +16,3 @@ The output of the code is a fine-tuned RoBERTa model trained for rumor detection
 
 ### Output
 The output of the code is a fine-tuned RoBERTa model trained for rumor detection, along with any additional information logged during training, such as loss and accuracy metrics.
-
-### Further Integration
-The trained model can be further integrated into larger systems for various purposes, such as:
-- Deployment for real-time rumor detection in social media platforms.
-- Integration into content moderation systems to flag potentially misleading information.
-- Incorporation into data analysis pipelines for generating insights into rumor propagation dynamics.
-
-### Security Considerations
-- **Data Security**: Ensure that sensitive data used for training, such as user information or private messages, is properly anonymized or encrypted to prevent unauthorized access.
-- **Model Security**: Regularly update and monitor the model for potential vulnerabilities or biases, especially when deployed in critical applications.
-- **API Key Security**: Safeguard Supabase API keys and other sensitive information using secure storage methods and access controls to prevent unauthorized access or misuse.
-
-By considering these aspects, users can effectively utilize the provided code for training RoBERTa models with EWC for rumor detection while addressing potential security concerns.
