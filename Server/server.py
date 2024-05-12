@@ -1,9 +1,11 @@
 import torch
 from flask import Flask, request, jsonify
 from transformers import AutoTokenizer, RobertaTokenizer, RobertaForSequenceClassification, AdamW
+from flask_cors import CORS
 
 # Initialize Flask application
 app = Flask(__name__)
+CORS(app)
 
 def make_predictions(model, texts):
     # Tokenize the input texts
@@ -30,12 +32,11 @@ def load_model():
     model = RobertaForSequenceClassification.from_pretrained('NFRD/nfrd-model', num_labels=2)
     return model
 
-
 model = load_model()
 
 
 # Define the predict endpoint
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['POST'])
 def predict():
     # Get input data from request body
     data = request.json
