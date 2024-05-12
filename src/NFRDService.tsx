@@ -8,12 +8,7 @@ export const NFRDService = async (inputData: string, setAnalysisResult: React.Di
     };
   
     try {
-      const response = await axios.get(apiUrl, {
-        headers,
-        data: {
-          input: inputData
-        }
-      });
+      const response = await axios.post(apiUrl, {"input": inputData}, {headers: headers});
         const responseData = response.data;
 
         // Check if the response data contains confidence and prediction
