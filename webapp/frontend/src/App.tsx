@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
 import './App.css';
-import {NFDRDResult, NFRDService} from "./NFRDService";
+import {NFRDResult, NFRDService} from "./NFRDService";
 
 function App() {
     const [inputData, setInputData] = useState('');
-    const [analysisResult, setAnalysisResult] = useState<NFDRDResult>(
+    const [analysisResult, setAnalysisResult] = useState<NFRDResult>(
         {
             isRumor: false,
             confidence: 0,
@@ -29,15 +29,21 @@ function App() {
             }}>
                 Analyze
             </button>
-            {analysisResult.prediction !== -1 && (
-                <div className="result-container">
-                    <h2>Analysis Result</h2>
+
+            <div className="result-container">
+                <h2>Analysis Result</h2>
+                {(analysisResult.prediction === 0 || analysisResult.prediction === 1) && (
                     <div className={analysisResult.isRumor ? 'result-true' : 'result-false'}>
                         <p>{analysisResult.isRumor ? 'Rumor' : 'Real News'}</p>
-                        <p>{analysisResult.confidence.toFixed(1)}%</p>
+                        <p>Confidence = {analysisResult.confidence.toFixed(1)}%</p>
                     </div>
-                </div>
-            )}
+                )}
+                {analysisResult.prediction === 404 && (
+                    <div className={'result-true'}>
+                        <p>Error: Unable to connect to the Azure API</p>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }
