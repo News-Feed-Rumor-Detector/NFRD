@@ -37,7 +37,7 @@ export const NFRDService = async (inputData: string, setAnalysisResult: React.Di
 
         // Dummy data uncomment for testing and comment out the above lines
         // let rnd = Math.random();
-        // const result: NFDRDResult = {
+        // const result: NFRDResult = {
         //     confidence: parseFloat(rnd.toFixed(3)) * 100,
         //     isRumor: rnd > 0.5,
         //     prediction: rnd > 0.5 ? 1 : 0,
