@@ -12,8 +12,16 @@ function App() {
             prediction: -1
         }
     );
-    const rumorPercentage = Math.round(analysisResult.confidence * 10) / 10;
-    const realPercentage = Math.round((100 - rumorPercentage) * 10) / 10;
+    
+    const predPrecentage = Math.round(analysisResult.confidence * 10) / 10 
+
+    const rumorPercentage = analysisResult.isRumor 
+    ?predPrecentage
+    :Math.round((100 - predPrecentage) * 10) / 10;
+
+    const realPercentage = analysisResult.isRumor 
+    ?Math.round((100 - predPrecentage) * 10) / 10
+    :predPrecentage;
     
     return (
         <div className="app-container">
@@ -48,7 +56,10 @@ function App() {
                 )}
                 
             </div>
-            <StackedBarChart part1Percentage={realPercentage} part2Percentage={rumorPercentage} />
+            {(analysisResult.prediction === 0 || analysisResult.prediction === 1) && (
+                <StackedBarChart part1Percentage={realPercentage} part2Percentage={rumorPercentage} />
+        )}
+
 
         </div>
     );
