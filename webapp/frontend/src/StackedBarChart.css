@@ -1,0 +1,55 @@
+.stacked-bar-container {
+    width: 100%;
+    position: relative;
+    margin-bottom: 20px; /* Added space for labels */
+    margin-top: 30px; /* Add margin top to create space above the component */
+
+}
+
+.label-container {
+    display: flex;
+    position: absolute;
+    top: -20px; /* Adjust this value to position labels correctly */
+    width: 100%;
+}
+
+.label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.stacked-bar {
+    display: flex;
+    width: 100%;
+    height: 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+.bar-part {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    color: white;
+    font-weight: bold;
+    position: relative;
+}
+
+.part1 {
+    background-color: #4caf50; /* Green */
+}
+
+.part2 {
+    background-color: #f44336; /* Red */
+}
+
+.percent-label {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+}
